@@ -1,0 +1,95 @@
+/*
+  Cor de fundo: #F4F4F4 (Cinza claro do seu logo)
+  Cor das barras e texto: #000 (Preto)
+*/
+
+/* Reset básico e fundo da página */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* Cor de fundo da imagem (cinza claro) */
+    background-color: #F4F4F4; 
+    font-family: Arial, sans-serif;
+    display: flex; /* Permite posicionar o cabeçalho, conteúdo e rodapé */
+    flex-direction: column;
+}
+
+/* Estilo das Barras Pretas
+*/
+.barra-superior, .barra-inferior {
+    height: 50px; /* Altura fixa para as barras */
+    background-color: #000; /* Cor preta */
+    width: 100%; /* Largura total da viewport */
+    position: fixed; /* Fixa as barras */
+    left: 0; /* Alinha à esquerda */
+}
+
+.barra-inferior {
+    /* Posiciona o rodapé na parte inferior */
+    bottom: 0; /* Fixa na parte inferior */
+    display: flex;
+    justify-content: flex-end; /* Alinha o conteúdo à direita */
+    align-items: center;
+    padding-right: 30px;
+    box-sizing: border-box;
+}
+
+.copyright {
+    color: #FFF; /* Texto branco no rodapé preto */
+    font-size: 0.8em;
+}
+
+/* Estilo do Conteúdo Central (Botões e Logo)
+*/
+.container-central {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo-area {
+    margin-bottom: 40px;
+}
+
+.logo-img {
+    max-width: 250px; /* Tamanho da logo */
+    height: auto;
+}
+
+.botoes-area {
+    display: flex;
+    gap: 20px; /* Espaçamento entre os botões */
+}
+
+.botao {
+    padding: 12px 25px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.principal {
+    background-color: #000; /* Botão principal preto */
+    color: #FFF;
+}
+
+.principal:hover {
+    background-color: #333;
+}
+
+.secundario {
+    background-color: #FFF; /* Botão secundário branco */
+    color: #000;
+    border: 2px solid #000;
+}
+
+.secundario:hover {
+    background-color: #EEE;
+}
