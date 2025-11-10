@@ -11,7 +11,7 @@ class ErrorBoundary extends Component {
   static getDerivedStateFromError(error) {
     return { hasError: true, error };
   }
-  componentDidCatch(error) { /* optional logging */ }
+  componentDidCatch(error) { console.error(error); }
   render() {
     if (this.state.hasError) {
       return (
@@ -27,20 +27,21 @@ class ErrorBoundary extends Component {
 
 /* carrega imagens da pasta assets/image (webpack require.context) */
 function importAllImagesSafe() {
+  // Usa API do Vite (import.meta.globEager) quando disponível.
+  // Retorna [{ src, name }, ...] e exclui o próprio logo do projeto.
   try {
-    if (typeof require === 'function' && typeof require.context === 'function') {
-      const req = require.context('./assets/image', false, /\.(png|jpe?g|svg)$/);
-      return req.keys()
-        .map((k) => {
-          const src = req(k);
-          const name = k.replace('./', '').replace(/\.(png|jpe?g|svg)$/, '');
-          return { src, name };
-        })
-        // exclui o arquivo do logo do projeto (ascend_market)
-        .filter(img => !/ascend[_-]?market/i.test(img.name));
+    if (typeof import.meta !== 'undefined' && typeof import.meta.globEager === 'function') {
+      const modules = import.meta.globEager('./assets/image/*.{png,jpg,jpeg,svg}');
+      return Object.keys(modules).map((k) => {
+        const mod = modules[k];
+        // em Vite a imagem importada normalmente fica em `default`
+        const src = mod && mod.default ? mod.default : mod;
+        const name = k.replace('./assets/image/', '').replace(/\.(png|jpe?g|svg)$/, '');
+        return { src, name };
+      }).filter(img => !/ascend[_-]?market/i.test(img.name));
     }
-  } catch (err) {
-    // não quebrar se require.context não estiver disponível
+  } catch {
+    // se globEager não existir, seguir sem quebrar
   }
   return [];
 }

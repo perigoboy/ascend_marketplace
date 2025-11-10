@@ -209,6 +209,8 @@ body, html {
   border-radius: 6px;
   font-size: 16px;
   transition: all 0.2s ease;
+  background-color: #f5f6f8; /* cinza mais claro para os campos */
+  color: #111;
 }
 
 .login-input:focus {
