@@ -45,8 +45,9 @@ function importAllImagesSafe() {
   }
   return [];
 }
-
-function Dashboard({ onLogout }) {
+function Dashboard({ onLogout, onNavigateToAgent }) {
+  const [showSettings, setShowSettings] = useState(false);
+  
   const images = importAllImagesSafe();
   const products = images.length ? images.map((img, i) => ({
     id: i,
@@ -58,7 +59,7 @@ function Dashboard({ onLogout }) {
   ];
 
   return (
-    <div className="dashboard-root">
+    <div className="dashboard-root" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <header className="dashboard-header">
         <div className="header-left">
           <img src={logoAscend} alt="logo" className="header-logo" />
@@ -75,11 +76,56 @@ function Dashboard({ onLogout }) {
           <button className="link-btn" type="button">Faça o download</button>
           <button className="link-btn" type="button">Conta</button>
           <button className="link-btn" type="button">Carrinho</button>
-          <button className="logout-btn" onClick={onLogout} type="button">Sair</button>
+          
+          <div className="settings-container">
+            <button 
+              className="settings-btn" 
+              type="button"
+              onClick={() => setShowSettings(!showSettings)}
+              title="Configurações"
+            >
+              ⚙️
+            </button>
+            
+            {showSettings && (
+              <div className="settings-menu">
+                <button className="settings-option" type="button">
+                  👤 Perfil
+                </button>
+                <button className="settings-option" type="button">
+                  🔔 Notificações
+                </button>
+                <button className="settings-option" type="button">
+                  🎨 Aparência
+                </button>
+                <button className="settings-option" type="button">
+                  🔒 Privacidade
+                </button>
+                <hr className="settings-divider" />
+                <button 
+                  className="settings-option agent-option" 
+                  type="button"
+                  onClick={() => {
+                    setShowSettings(false);
+                    onNavigateToAgent?.();
+                  }}
+                >
+                  👔 Entrar como Agente
+                </button>
+                <button 
+                  className="settings-option logout-option" 
+                  type="button"
+                  onClick={onLogout}
+                >
+                  🚪 Sair
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
-      <main className="dashboard-main">
+      <main className="dashboard-main" style={{ flex: 1 }}>
         <section className="hero">
           <div className="hero-left">
             <div className="offer-badge">-19%</div>
@@ -125,29 +171,24 @@ function Dashboard({ onLogout }) {
   );
 }
 
+// ...existing code...
+
 function HomePage() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const [showAgentLogin, setShowAgentLogin] = useState(false);
-  const [showAgentRegister, setShowAgentRegister] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [userType, setUserType] = useState(null);
 
-  const openLogin = () => { setShowLogin(true); setShowRegister(false); setShowAgentLogin(false); setShowAgentRegister(false); };
-  const openRegister = () => { setShowRegister(true); setShowLogin(false); setShowAgentLogin(false); setShowAgentRegister(false); };
-  const openAgentLogin = () => { setShowAgentLogin(true); setShowLogin(false); setShowRegister(false); setShowAgentRegister(false); };
-  const openAgentRegister = () => { setShowAgentRegister(true); setShowAgentLogin(false); setShowLogin(false); setShowRegister(false); };
-  const closeForms = () => { setShowLogin(false); setShowRegister(false); setShowAgentLogin(false); setShowAgentRegister(false); };
+  const openLogin = () => { setShowLogin(true); setShowRegister(false); };
+  const openRegister = () => { setShowRegister(true); setShowLogin(false); };
+  const closeForms = () => { setShowLogin(false); setShowRegister(false); };
 
-  const isFormOpen = showLogin || showRegister || showAgentLogin || showAgentRegister;
+  const isFormOpen = showLogin || showRegister;
 
-  const handleLoginSubmit = (e) => { e.preventDefault(); setUserType('customer'); setTimeout(() => setLoggedIn(true), 400); };
-  const handleRegisterSubmit = (e) => { e.preventDefault(); setUserType('customer'); setTimeout(() => setLoggedIn(true), 400); };
-  const handleAgentLoginSubmit = (e) => { e.preventDefault(); setUserType('agent'); setTimeout(() => setLoggedIn(true), 400); };
-  const handleAgentRegisterSubmit = (e) => { e.preventDefault(); setUserType('agent'); setTimeout(() => setLoggedIn(true), 400); };
+  const handleLoginSubmit = (e) => { e.preventDefault(); setTimeout(() => setLoggedIn(true), 400); };
+  const handleRegisterSubmit = (e) => { e.preventDefault(); setTimeout(() => setLoggedIn(true), 400); };
 
   if (loggedIn) {
-    return <Dashboard onLogout={() => { setLoggedIn(false); setShowLogin(false); setShowRegister(false); setShowAgentLogin(false); setShowAgentRegister(false); setUserType(null); }} />;
+    return <Dashboard onLogout={() => { setLoggedIn(false); setShowLogin(false); setShowRegister(false); }} />;
   }
 
   return (
@@ -158,23 +199,14 @@ function HomePage() {
 
       {!isFormOpen ? (
         <div className="botoes-area">
-          <div className="botoes-group">
-            <h3>Cliente</h3>
-            <button className="botao principal" onClick={openLogin} type="button">Entrar</button>
-            <button className="botao secundario" onClick={openRegister} type="button">Cadastrar</button>
-          </div>
-          
-          <div className="botoes-group agent-group">
-            <h3>Já é um agente?</h3>
-            <button className="botao principal" onClick={openAgentLogin} type="button">Entrar como Agente</button>
-            <button className="botao secundario" onClick={openAgentRegister} type="button">Cadastro de Agente</button>
-          </div>
+          <button className="botao principal" onClick={openLogin} type="button">Entrar</button>
+          <button className="botao secundario" onClick={openRegister} type="button">Cadastrar</button>
         </div>
       ) : (
         <div className="forms-area">
           {showLogin && (
             <div className="form-container login-container">
-              <h2>Login Cliente</h2>
+              <h2>Login</h2>
               <form className="login-form" onSubmit={handleLoginSubmit}>
                 <div className="form-fields">
                   <input type="email" placeholder="Email" className="login-input" required />
@@ -189,46 +221,12 @@ function HomePage() {
 
           {showRegister && (
             <div className="form-container register-container">
-              <h2>Cadastro Cliente</h2>
+              <h2>Cadastro</h2>
               <form className="register-form" onSubmit={handleRegisterSubmit}>
                 <div className="form-fields">
                   <input type="text" placeholder="Nome" className="login-input" required />
                   <input type="email" placeholder="Email" className="login-input" required />
                   <input type="password" placeholder="Senha" className="login-input" required />
-                </div>
-
-                <button type="submit" className="botao principal">Cadastrar</button>
-                <button type="button" className="botao secundario" onClick={closeForms}>Voltar</button>
-              </form>
-            </div>
-          )}
-
-          {showAgentLogin && (
-            <div className="form-container agent-login-container">
-              <h2>Login Agente</h2>
-              <form className="agent-login-form" onSubmit={handleAgentLoginSubmit}>
-                <div className="form-fields">
-                  <input type="email" placeholder="Email" className="login-input" required />
-                  <input type="password" placeholder="Senha" className="login-input" required />
-                </div>
-
-                <button type="submit" className="botao principal">Login</button>
-                <button type="button" className="botao secundario" onClick={closeForms}>Voltar</button>
-              </form>
-            </div>
-          )}
-
-          {showAgentRegister && (
-            <div className="form-container agent-register-container">
-              <h2>Cadastro Agente</h2>
-              <form className="agent-register-form" onSubmit={handleAgentRegisterSubmit}>
-                <div className="form-fields">
-                  <input type="text" placeholder="Nome Completo" className="login-input" required />
-                  <input type="email" placeholder="Email" className="login-input" required />
-                  <input type="password" placeholder="Senha" className="login-input" required />
-                  <input type="text" placeholder="CPF" className="login-input" required />
-                  <input type="tel" placeholder="Telefone" className="login-input" required />
-                  <input type="text" placeholder="Empresa (Opcional)" className="login-input" />
                 </div>
 
                 <button type="submit" className="botao principal">Cadastrar</button>
@@ -249,9 +247,3 @@ export default function AppWrapper() {
     </ErrorBoundary>
   );
 }
-
-// Exemplo de uso em App.jsx ou main router:
-import AgentePage from './Paginas/AgenteDeCompras';
-
-// E então usar:
-<AgentePage />

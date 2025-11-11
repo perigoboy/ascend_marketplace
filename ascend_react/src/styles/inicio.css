@@ -1,4 +1,36 @@
-/* Reset básico */
+/*
+|--------------------------------------------------------------------------
+| 1. Variáveis Globais (Design Tokens)
+|--------------------------------------------------------------------------
+*/
+:root {
+  /* Cores */
+  --color-primary: #000;
+  --color-secondary: #0066cc; /* Azul para links/agente */
+  --color-background: #F4F4F4;
+  --color-white: #fff;
+  --color-dark: #111;
+  --color-text-light: #333;
+  --color-border: #e6e6e6;
+  --color-input-bg: #f5f6f8;
+
+  /* Sombras */
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.16);
+  --shadow-inset: 0 6px 14px rgba(0, 0, 0, 0.06);
+
+  /* Transições */
+  --transition-default: all 400ms ease;
+  --transition-fast: all 0.3s ease;
+  --transition-button: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+
+/*
+|--------------------------------------------------------------------------
+| 2. Reset e Layout Base
+|--------------------------------------------------------------------------
+*/
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +38,7 @@
 }
 
 body, html {
-  background-color: #F4F4F4;
+  background-color: var(--color-background);
   font-family: Arial, sans-serif;
   min-height: 100vh;
   width: 100%;
@@ -14,7 +46,7 @@ body, html {
   justify-content: center;
 }
 
-/* Container principal */
+/* Container principal para login/homepage */
 .container-central {
   width: 100%;
   max-width: 1200px;
@@ -26,173 +58,130 @@ body, html {
   padding: 20px;
 }
 
-/* Área da logo */
+/* Dashboard Wrapper */
+.dashboard-root {
+  width: 100%;
+  background: var(--color-white);
+  color: var(--color-dark);
+}
+
+/*
+|--------------------------------------------------------------------------
+| 3. Logo e Transições
+|--------------------------------------------------------------------------
+*/
 .logo-area {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 40px; /* Base para a homepage */
   width: 100%;
 }
 
-/* Mantenha o resto do CSS como está... */
-/*existing code*/
-
-/* substitua/mescle estas regras no seu inicio.css (mantive o resto) */
-
-/* aumenta logo na homepage */
-/* substitua/mescle estas regras no seu inicio.css (mantive o resto) */
-
-/* aumenta logo na homepage */
 .logo-img {
-  max-width: 380px; /* maior na homepage */
+  max-width: 380px; /* Padrão (maior na homepage) */
   height: auto;
-  transition: all 400ms ease;
+  transition: var(--transition-default);
 }
 
-/* quando form ativo, reduz de forma suave */
+/* Quando o formulário está ativo, reduz a logo e ajusta margens */
+.logo-area.logo-small {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
 .logo-area.logo-small .logo-img {
-  max-width: 240px;
+  max-width: 200px; /* Redução suave */
 }
 
-/* Header: garantir layout responsivo sem sobreposição */
+/*
+|--------------------------------------------------------------------------
+| 4. Header (Dashboard)
+|--------------------------------------------------------------------------
+*/
 .dashboard-header {
   display: flex;
   align-items: center;
   gap: 20px;
   padding: 14px 28px;
-  border-bottom: 1px solid #e6e6e6;
-  background: #fff;
-  justify-content: space-between; /* evita overlap */
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-white);
+  justify-content: space-between;
 }
 
-/* left / center / right flex */
-.header-left { flex: 0 0 auto; display:flex; align-items:center; }
-.header-center { flex: 1 1 640px; display:flex; justify-content:center; padding: 0 10px; min-width: 200px; }
-.header-right { flex: 0 0 auto; display:flex; gap:10px; align-items:center; z-index:2; }
+.header-logo {
+  max-width: 60px;
+  height: auto;
+}
 
-/* search-wrap ocupa largura disponível até max-width */
+.header-left { 
+  flex: 0 0 auto; 
+  display:flex; 
+  align-items:center; 
+}
+.header-center { 
+  flex: 1 1 640px; /* Prioriza esta largura */
+  display:flex; 
+  justify-content:center; 
+  padding: 0 10px; 
+  min-width: 200px; 
+}
+.header-right { 
+  flex: 0 0 auto; 
+  display:flex; 
+  gap:10px; 
+  align-items:center; 
+  z-index: 2; /* Garante que os botões não sejam sobrepostos */
+}
+
 .search-wrap {
   display:flex;
   width: 100%;
-  max-width: 720px; /* maior, mas não infinita */
+  max-width: 720px;
 }
 .search-input {
-  flex:1;
-  padding:10px 12px;
+  flex: 1;
+  padding: 10px 12px;
   border: 2px solid #ddd;
   border-right: none;
   border-radius: 6px 0 0 6px;
-  min-width: 0; /* evita overflow no flex */
+  min-width: 0;
+  transition: all 0.2s ease;
 }
 .search-btn {
   padding: 10px 12px;
-  border: 2px solid #000;
-  background:#000;
-  color:#fff;
+  border: 2px solid var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-white);
   border-radius: 0 6px 6px 0;
-  cursor:pointer;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-/* assegura que header-right nunca seja coberto */
-.header-right .link-btn, .header-right .logout-btn {
+/* Garante que os botões de link/logout não quebrem */
+.header-right .link-btn, 
+.header-right .logout-btn {
   white-space: nowrap;
 }
 
-/* Products grid: garante imagens reais ocupando bem o card */
-.product-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 18px;
-  margin-top: 12px;
-}
-.product-card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-height: 260px;
-  overflow: hidden;
-}
-.product-img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 8px;
-  background: #f4f4f4;
-}
-
-/* responsividade */
-@media (max-width:1100px) {
-  .header-center { flex-basis: 520px; }
-  .search-wrap { max-width: 520px; }
-}
-@media (max-width:900px) {
-  .dashboard-header { flex-wrap: wrap; gap:12px; padding:12px; }
-  .header-center { order: 3; width: 100%; justify-content: center; }
-  .header-right { order: 2; }
-  .product-cards { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
-}
-
-/* Logo menor quando form está ativo */
-.logo-area.logo-small {
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-
-.logo-area.logo-small .logo-img {
-  max-width: 200px;
-}
-
-/* Área dos botões */
-.botoes-area {
-  display: flex;
-  gap: 20px;
-}
-
-.botao {
-  padding: 12px 30px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.botao:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.principal {
-  background: #000;
-  color: #fff;
-  border: none;
-}
-
-.secundario {
-  background: #fff;
-  color: #000;
-  border: 2px solid #000;
-}
-
-/* Área dos formulários - ajuste estas propriedades */
+/*
+|--------------------------------------------------------------------------
+| 5. Formulários (Login/Registro)
+|--------------------------------------------------------------------------
+*/
 .forms-area {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  display: flex;          /* Adiciona flex */
-  justify-content: center; /* Centraliza horizontalmente */
+  display: flex;
+  justify-content: center;
 }
 
 .form-container {
-  background: #fff;
+  width: 100%; /* Adicionado para garantir que o contêiner se expanda ao máximo de 400px */
+  background: var(--color-white);
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-sm);
   animation: fadeIn 0.3s ease;
 }
 
@@ -209,16 +198,248 @@ body, html {
   border-radius: 6px;
   font-size: 16px;
   transition: all 0.2s ease;
-  background-color: #f5f6f8; /* cinza mais claro para os campos */
-  color: #111;
+  background-color: var(--color-input-bg);
+  color: var(--color-dark);
 }
 
-.login-input:focus {
-  outline: none;
-  border-color: #000;
+/*
+|--------------------------------------------------------------------------
+| 6. Botões (Gerais)
+|--------------------------------------------------------------------------
+*/
+.botoes-area {
+  display: flex;
+  gap: 20px;
 }
 
-/* Animação suave para elementos que aparecem */
+.botao {
+  padding: 10px 18px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: var(--transition-button);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px solid transparent;
+}
+
+/* Ação Principal (Preto) */
+.botao.principal,
+.botao.comprar,
+.hero-cta {
+  background: linear-gradient(180deg, var(--color-primary), #222);
+  color: var(--color-white);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+.botao.principal:hover,
+.botao.comprar:hover,
+.hero-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Ação Secundária (Contorno) */
+.botao.secundario {
+  background: var(--color-white);
+  color: var(--color-dark);
+  border: 2px solid var(--color-dark);
+}
+.botao.secundario:hover {
+  background: #f6f6f6;
+  transform: translateY(-2px);
+}
+
+/* Botões do Header (Link) */
+.link-btn {
+  color: var(--color-dark);
+  background: transparent;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+.logout-btn {
+  background: transparent;
+  border: 2px solid var(--color-dark);
+  color: var(--color-dark);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+/* Botão do Agente (Link Secundário) */
+.botao.agent-link {
+  background: transparent;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+  padding: 10px 18px;
+  font-size: 14px;
+}
+.botao.agent-link:hover {
+  background: var(--color-secondary);
+  color: var(--color-white);
+}
+
+/* Botão configurações no dashboard agente */
+.agent-settings-btn {
+  color: var(--color-dark);
+  font-size: 14px;
+  padding: 8px 10px; /* Adicionado padding para área de clique */
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+.agent-settings-btn:hover {
+  background: #f0f0f0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| 7. Dashboard Main e Componentes
+|--------------------------------------------------------------------------
+*/
+.dashboard-main { 
+  padding: 28px; 
+  max-width: 1100px; 
+  margin: 0 auto; 
+  width: 100%; /* Garantir que ocupe a largura disponível */
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  gap: 28px;
+  background: #efefef;
+  border-radius: 8px;
+  padding: 28px;
+  align-items: center;
+}
+.hero-left { 
+  flex: 1; 
+}
+.hero-right { 
+  flex: 1; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+.offer-badge {
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 8px 12px;
+  border-radius: 50%;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.hero h2 { 
+  font-size: 28px; 
+  margin: 6px 0; 
+}
+.hero-sub { 
+  color: var(--color-text-light); 
+  margin-bottom: 14px; 
+}
+
+.hero-cards { 
+  display: flex; 
+  gap: 18px; 
+  transform: rotate(-12deg); 
+}
+.hero-card {
+  width: 120px;
+  height: 120px;
+  background: var(--color-white);
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+/* Features Row */
+.features-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px 0;
+  color: var(--color-text-light);
+}
+
+/* Produtos */
+.products-section { 
+  margin-top: 22px; 
+}
+.products-section h3 { 
+  margin-bottom: 12px; 
+  font-size: 20px; 
+}
+
+/* Cards de Produto (Grid/Layout) */
+.product-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 12px;
+}
+.product-card {
+  background: var(--color-white);
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  min-height: 260px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+.product-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--color-background);
+}
+
+.product-info { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px; 
+  flex: 1; 
+}
+.product-name {
+  font-weight: 700;
+  color: var(--color-dark);
+  text-transform: capitalize;
+}
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-price {
+  font-weight: 700;
+  color: var(--color-dark);
+  background: linear-gradient(90deg, rgba(0,0,0,0.04), transparent);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.divider-text {
+  color: #999;
+  font-size: 14px;
+  margin: 0 8px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| 8. Animações e Foco
+|--------------------------------------------------------------------------
+*/
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -229,273 +450,178 @@ body, html {
     transform: translateY(0);
   }
 }
-/*...existing code...*/
 
-/* === Dashboard / Home após login (modelo da imagem) === */
-.dashboard-root {
-  width: 100%;
-  background: #fff;
-  color: #111;
-}
-
-/* Header */
-.dashboard-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 14px 28px;
-  border-bottom: 1px solid #e6e6e6;
-  background: #fff;
-}
-.header-logo { width: 60px; height: auto; }
-
-.header-left { flex: 0 0 auto; }
-.header-center { flex: 1 1 auto; display:flex; justify-content:center; }
-.header-right { flex: 0 0 auto; display:flex; gap:10px; align-items:center; }
-
-.search-wrap { display:flex; width: 60%; max-width: 640px; }
-.search-input {
-  flex:1;
-  padding:10px 12px;
-  border: 2px solid #ddd;
-  border-right: none;
-  border-radius: 6px 0 0 6px;
-}
-.search-btn {
-  padding: 10px 12px;
-  border: 2px solid #000;
-  background:#000;
-  color:#fff;
-  border-radius: 0 6px 6px 0;
-  cursor:pointer;
-}
-
-.link-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-/* Main hero area */
-.dashboard-main { padding: 28px; max-width: 1100px; margin: 0 auto; }
-.hero {
-  display:flex;
-  gap: 28px;
-  background: #efefef;
-  border-radius: 8px;
-  padding: 28px;
-  align-items:center;
-}
-.hero-left { flex:1; }
-.hero-right { flex:1; display:flex; justify-content:center; align-items:center; }
-
-.offer-badge {
-  display:inline-block;
-  background:#000;
-  color:#fff;
-  padding:8px 12px;
-  border-radius:50%;
-  margin-bottom:12px;
-  font-weight:700;
-}
-.hero h2 { font-size:28px; margin:6px 0; }
-.hero-sub { color:#333; margin-bottom:14px; }
-
-.hero-cta {
-  background:#000;
-  color:#fff;
-  padding:10px 18px;
-  border-radius:6px;
-  border:none;
-  cursor:pointer;
-}
-
-/* Hero image cards (visual only) */
-.hero-cards { display:flex; gap:18px; transform: rotate(-12deg); }
-.hero-card {
-  width:120px;
-  height:120px;
-  background:#fff;
-  border-radius:8px;
-  box-shadow:0 8px 18px rgba(0,0,0,0.12);
-}
-
-/* Features row */
-.features-row {
-  display:flex;
-  gap:20px;
-  justify-content: center;
-  padding:20px 0;
-  color:#333;
-}
-
-/* Products section */
-.products-section { margin-top:22px; }
-.products-section h3 { margin-bottom:12px; font-size:20px; }
-.product-cards { display:flex; gap:16px; flex-wrap:wrap; }
-.product-card {
-  flex: 1 1 200px;
-  min-height:120px;
-  background:#fafafa;
-  border-radius:8px;
-  padding:12px;
-  box-shadow:0 6px 14px rgba(0,0,0,0.06);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-/* Responsividade */
-@media (max-width:900px) {
-  .hero { flex-direction:column; text-align:center; transform:none; }
-  .hero-cards { transform: rotate(0); }
-  .search-wrap { width: 80%; }
-}
-/*...existing code...*/
-
-/* Buttons: mais fluidos, contraste forte mantendo paleta (preto / branco / cinza) */
-.botao {
-  padding: 10px 18px;
-  font-weight: 700;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 2px solid transparent;
-}
-
-/* ação principal — preto sólido com leve brilho */
-.botao.principal,
-.botao.comprar,
-.hero-cta {
-  background: linear-gradient(180deg,#000,#222);
-  color: #fff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-}
-.botao.principal:hover,
-.botao.comprar:hover,
-.hero-cta:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.16);
-}
-
-/* secundário — contorno forte em paleta */
-.botao.secundario {
-  background: #fff;
-  color: #111;
-  border: 2px solid #111;
-}
-.botao.secundario:hover {
-  background: #f6f6f6;
-  transform: translateY(-2px);
-}
-
-/* foco acessível */
-.botao:focus, .search-input:focus, .login-input:focus {
+.botao:focus, 
+.search-input:focus, 
+.login-input:focus {
   outline: 3px solid rgba(0,0,0,0.08);
   outline-offset: 2px;
 }
 
-/* Header buttons */
-.link-btn {
-  color: #111;
-  background: transparent;
-  padding: 8px 10px;
-  border-radius: 6px;
-}
-.logout-btn {
-  background: transparent;
-  border: 2px solid #111;
-  color: #111;
-  padding: 8px 12px;
-  border-radius: 6px;
+
+/*
+|--------------------------------------------------------------------------
+| 9. Responsividade
+|--------------------------------------------------------------------------
+*/
+@media (max-width: 1100px) {
+  .header-center { flex-basis: 520px; }
+  .search-wrap { max-width: 520px; }
 }
 
-/* Products grid - imagem e info */
-.product-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 18px;
-  margin-top: 12px;
+@media (max-width: 900px) {
+  .dashboard-header { 
+    flex-wrap: wrap; 
+    gap: 12px; 
+    padding: 12px; 
+  }
+  .header-center { 
+    order: 3; 
+    width: 100%; 
+    justify-content: center; 
+  }
+  .header-right { order: 2; }
+  .search-wrap { width: 90%; max-width: 100%; } /* Melhor ajuste para mobile */
+
+  .hero { 
+    flex-direction: column; 
+    text-align: center; 
+    transform: none; 
+  }
+  .hero-cards { transform: rotate(0); }
+  
+  .product-cards { 
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+  }
+  .dashboard-main { padding: 18px; }
 }
-.product-card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+
+
+.settings-container {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 12px;
-  min-height: 260px;
+  align-items: center;
+}
+
+.settings-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+  color: #000;
+}
+
+.settings-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: rotate(15deg);
+}
+
+.settings-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 10px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+  z-index: 1000;
+  min-width: 220px;
   overflow: hidden;
 }
-.product-img {
+
+.settings-option {
   width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 8px;
-  background: #f4f4f4;
-}
-.product-info { display:flex; flex-direction:column; gap:8px; flex:1; }
-.product-name {
-  font-weight:700;
-  color:#111;
-  text-transform: capitalize;
-}
-.product-footer {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-}
-
-/* melhora contraste do preço */
-.product-price {
-  font-weight:700;
-  color:#111;
-  background: linear-gradient(90deg, rgba(0,0,0,0.04), transparent);
-  padding:6px 10px;
-  border-radius:6px;
-}
-
-/* responsividade */
-@media (max-width:900px) {
-  .product-cards { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
-  .dashboard-main { padding: 18px; }
-  .search-wrap { width: 90%; }
-}
-
-/* Botão para agente na homepage */
-.divider-text {
-  color: #999;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  color: #333;
   font-size: 14px;
-  margin: 0 8px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent;
 }
 
-.botao.agent-link {
-  background: transparent;
-  color: #0066cc;
-  border: 2px solid #0066cc;
-  padding: 10px 18px;
-  font-size: 14px;
+.settings-option:hover {
+  background: #f5f5f5;
+  border-left-color: #667eea;
+  padding-left: 20px;
 }
 
-.botao.agent-link:hover {
-  background: #0066cc;
-  color: #fff;
+.settings-divider {
+  margin: 8px 0;
+  border: none;
+  border-top: 1px solid #e0e0e0;
 }
 
-/* Botão configurações no dashboard agente */
-.agent-settings-btn {
-  color: #111;
-  font-size: 14px;
+.settings-option.agent-option {
+  color: #667eea;
+  font-weight: 600;
 }
 
-.agent-settings-btn:hover {
-  background: #f0f0f0;
-  border-radius: 6px;
+.settings-option.agent-option:hover {
+  background: rgba(102, 126, 234, 0.1);
+  border-left-color: #667eea;
+}
+
+.settings-option.logout-option {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.settings-option.logout-option:hover {
+  background: rgba(255, 107, 107, 0.1);
+  border-left-color: #ff6b6b;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| 10. Modal (Cadastro de Agente)
+|--------------------------------------------------------------------------
+*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: var(--color-white);
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.3s ease;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: var(--color-dark);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
