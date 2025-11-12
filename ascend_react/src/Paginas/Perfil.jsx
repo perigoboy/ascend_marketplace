@@ -44,14 +44,14 @@ function Perfil() {
               width: '100px',
               height: '100px',
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #777373ff 0%, #000000ff 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '40px',
               color: 'white'
             }}>
-              👤
+              🧟
             </div>
             <div>
               <h2 style={{ margin: '0 0 5px 0' }}>Nome do Usuário</h2>
