@@ -4,7 +4,8 @@ import './styles/inicio.css';
 import logoAscend from './assets/image/ascend_market.jpeg';
 import FoneOuvido from './assets/image/Fone de ouvido blue.png';
 import Perfil from './Paginas/Perfil';
-
+import produto_11setembro from './assets/image/produto_11setembro.png'; 
+import BlocoNotasInvisivel from './assets/image/Bloco Notas Invisivel.png';
 //ate aqui  
 
 /* Error boundary */
@@ -62,6 +63,16 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
     price: (9.99 + i * 5).toFixed(2),
   })) : [
     { id: 0, name: 'Fone de ouvido', image: FoneOuvido, price: '299.99' },
+    { id: 1, name: 'Produto 11 de Setembro', image: produto_11setembro, price: '199.99' },
+    { id: 2, name: 'Bloco de Notas Invisível', image: BlocoNotasInvisivel, price: '49.99' },
+    { id: 3, name: 'Produto Exemplo 4', image: FoneOuvido, price: '149.99' },
+    { id: 4, name: 'Produto Exemplo 5', image: produto_11setembro, price: '89.99' },
+    { id: 5, name: 'Produto Exemplo 6', image: BlocoNotasInvisivel, price: '29.99' },
+    { id: 6, name: 'Produto Exemplo 7', image: FoneOuvido, price: '129.99' },
+    { id: 7, name: 'Produto Exemplo 8', image: produto_11setembro, price: '59.99' },
+    { id: 8, name: 'Produto Exemplo 9', image: BlocoNotasInvisivel, price: '19.99' },
+    { id: 9, name: 'Produto Exemplo 10', image: FoneOuvido, price: '199.99' },
+    
   ];
 
   return (
