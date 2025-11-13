@@ -6,6 +6,27 @@ import FoneOuvido from './assets/image/Fone de ouvido blue.png';
 import Perfil from './Paginas/Perfil';
 import produto_11setembro from './assets/image/produto_11setembro.png'; 
 import BlocoNotasInvisivel from './assets/image/Bloco Notas Invisivel.png';
+import Chapeuminiventilador from './assets/image/Chapeu mini-ventilador.png';
+import Chineldomassageador from './assets/image/Chinelo massageador.png';
+import Espelhodasinceridade from './assets/image/Espelho da sinceridade.png';
+import FoneOuvidoblue from './assets/image/Fone de ouvido blue.png';
+import FoneOuvidobluebranco from './assets/image/Fone de ouvido branco.png'; 
+import GatoVirtual from './assets/image/Gato virtual.png';
+import marmitaeletrica from './assets/image/marmita eletrica.png'; 
+import perfumepoto from './assets/image/perfume poto.png'; 
+import Piluladacoragem from './assets/image/Pilula da coragem.png'; 
+//import produto_fosforolabubu from './assets/image/produto_fosforolabubu.png';
+import produto_funko from './assets/image/produto_funko.png';
+import Purificador_ar from './assets/image/Purificador_ar.png';
+import Relogioqueatrasa from './assets/image/Relogio que atrasa.png';
+import Sapatosapo from './assets/image/Sapato sapo.png';
+import TenisGPSbar from './assets/image/Tênis GPS-bar.png';
+import smartwatchinteligente from './assets/image/smartwatch inteligente.png'; 
+import tarôdosboletos from './assets/image/tarô dos boletos.png';
+import travesseirowifi from './assets/image/travesseiro wi-fi.png';
+import Veladuvidosa from './assets/image/Vela duvidosa.png';
+
+
 //ate aqui  
 
 /* Error boundary */
@@ -63,16 +84,28 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
     price: (9.99 + i * 5).toFixed(2),
   })) : [
     { id: 0, name: 'Fone de ouvido', image: FoneOuvido, price: '299.99' },
-    { id: 1, name: 'Produto 11 de Setembro', image: produto_11setembro, price: '199.99' },
-    { id: 2, name: 'Bloco de Notas Invisível', image: BlocoNotasInvisivel, price: '49.99' },
-    { id: 3, name: 'Produto Exemplo 4', image: FoneOuvido, price: '149.99' },
-    { id: 4, name: 'Produto Exemplo 5', image: produto_11setembro, price: '89.99' },
-    { id: 5, name: 'Produto Exemplo 6', image: BlocoNotasInvisivel, price: '29.99' },
-    { id: 6, name: 'Produto Exemplo 7', image: FoneOuvido, price: '129.99' },
-    { id: 7, name: 'Produto Exemplo 8', image: produto_11setembro, price: '59.99' },
-    { id: 8, name: 'Produto Exemplo 9', image: BlocoNotasInvisivel, price: '19.99' },
-    { id: 9, name: 'Produto Exemplo 10', image: FoneOuvido, price: '199.99' },
-    
+    { id: 1, name: 'Produto 11 de setembro', image: produto_11setembro, price: '199.99' },
+    { id: 2, name: 'Bloco de notas invisível', image: BlocoNotasInvisivel, price: '49.99' },
+    { id: 3, name: 'Chapéu mini-ventilador', image: Chapeuminiventilador, price: '149.99' },
+    { id: 4, name: 'Chinelo massageador', image: Chineldomassageador, price: '89.99' },
+    { id: 5, name: 'Espelho da sinceridade', image: Espelhodasinceridade, price: '29.99' },
+    { id: 6, name: 'Fone de ouvido(blue)', image: FoneOuvidoblue, price: '129.99' },
+    { id: 7, name: 'Fone de ouvido (branco)', image: FoneOuvidobluebranco, price: '59.99' },
+    { id: 8, name: 'Gato virtual', image: GatoVirtual, price: '19.99' },
+    { id: 9, name: 'Marmita eletrica', image: marmitaeletrica, price: '199.99' },
+    { id: 11, name: 'Perfume de potó', image: perfumepoto, price: '199.99' },
+    { id: 10, name: 'Pílula da coragem', image: Piluladacoragem, price: '199.99' },
+    //{ id: 10, name: 'Fósforo de labubu', image: produto_fosforolabubu, price: '199.99' },
+    { id: 12, name: 'Funko Paulinho', image: produto_funko, price: '199.99' },
+    { id: 13, name: 'Purificador de ar', image: Purificador_ar, price: '199.99' },
+    { id: 14, name: 'Relógio que atrasa', image: Relogioqueatrasa, price: '199.99' },
+    { id: 15, name: 'Sapato sapo', image: Sapatosapo, price: '199.99' },
+    { id: 16, name: 'Tênis voador', image: TenisGPSbar, price: '199.99' },
+    { id: 17, name: 'Smartwatch', image: smartwatchinteligente, price: '199.99' },
+    { id: 18, name: 'Tarô dos boletos', image: tarôdosboletos, price: '199.99' },
+    { id: 19, name: 'Travesseiro wi-fi', image: travesseirowifi, price: '199.99' },
+    { id: 20, name: 'Vela duvidosa', image: Veladuvidosa, price: '199.99' },
+
   ];
 
   return (

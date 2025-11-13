@@ -65,7 +65,7 @@ function Perfil() {
             <h3 style={{ marginBottom: '15px' }}>Informações Pessoais</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#666', fontSize: '14px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
                   Nome completo
                 </label>
                 <input
@@ -82,7 +82,7 @@ function Perfil() {
               </div>
 
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#666', fontSize: '14px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
                   Email
                 </label>
                 <input
@@ -99,7 +99,7 @@ function Perfil() {
               </div>
 
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#666', fontSize: '14px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
                   Telefone
                 </label>
                 <input
@@ -123,7 +123,7 @@ function Perfil() {
             <h3 style={{ marginBottom: '15px' }}>Endereço</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#666', fontSize: '14px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
                   CEP
                 </label>
                 <input
@@ -141,7 +141,7 @@ function Perfil() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '15px' }}>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '5px', color: '#666', fontSize: '14px' }}>
+                  <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
                     Rua
                   </label>
                   <input
@@ -157,7 +157,7 @@ function Perfil() {
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '5px', color: '#666', fontSize: '14px' }}>
+                  <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
                     Número
                   </label>
                   <input
@@ -175,7 +175,7 @@ function Perfil() {
               </div>
 
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#666', fontSize: '14px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
                   Cidade / Estado
                 </label>
                 <input
