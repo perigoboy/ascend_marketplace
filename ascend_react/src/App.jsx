@@ -4,6 +4,7 @@ import './styles/inicio.css';
 import logoAscend from './assets/image/ascend_market.jpeg';
 import FoneOuvido from './assets/image/Fone de ouvido blue.png';
 import Perfil from './Paginas/Perfil';
+import Pagamento from './Paginas/Pagamento'; 
 
 //ate aqui  
 
@@ -108,11 +109,18 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
                 <button className="settings-option" type="button">
                   🔔 Notificações
                 </button>
-                <button className="settings-option" type="button">
+               <button className="settings-option" type="button">
                   🎨 Aparência
                 </button>
-                <button className="settings-option" type="button">
-                  🔒 Privacidade
+               <button 
+                  className="settings-option" 
+                  type="button"
+                  onClick={() => {
+                    setShowSettings(false);
+                    navigate("/pagamento");
+                  }}
+                >
+                  👔 Pagamento
                 </button>
                 <hr className="settings-divider" />
                 <button 
@@ -333,6 +341,8 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/perfil" element={<Perfil />} />
+
+      <Route path="/pagamento" element={<Pagamento />} />
     </Routes>
   );
 }

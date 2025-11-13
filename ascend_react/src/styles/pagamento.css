@@ -1,0 +1,117 @@
+.container {
+color: black;
+max-width: 800px;
+margin: 40px auto;
+padding: 20px;
+font-family: Arial, sans-serif;
+}
+
+.titulo {
+font-size: 24px;
+font-weight: bold;
+margin-bottom: 20px;
+}
+
+.card {
+border: 1px solid #ccc;
+border-radius: 12px;
+margin-bottom: 20px;
+box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+background-color: #fff;
+}
+
+.card-header {
+border-bottom: 1px solid #eee;
+padding: 16px;
+}
+
+.card-header h2 {
+font-size: 18px;
+margin: 0;
+}
+
+.card-header p {
+color: #666;
+font-size: 14px;
+margin-top: 4px;
+}
+
+.bonus-content {
+display: flex;
+justify-content: space-between;
+padding: 20px;
+}
+
+.bonus-label {
+color: #555;
+font-size: 14px;
+}
+
+.bonus-total {
+font-size: 28px;
+font-weight: bold;
+margin-top: 5px;
+}
+
+.bonus-status p {
+margin: 0;
+color: #666;
+font-size: 14px;
+}
+
+.faq-content {
+padding: 16px;
+}
+
+.faq-item {
+border: 1px solid #eee;
+border-radius: 8px;
+padding: 12px;
+margin-bottom: 10px;
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+}
+
+.faq-title {
+font-weight: bold;
+margin-bottom: 4px;
+}
+
+.faq-text {
+color: #666;
+font-size: 14px;
+}
+
+.payment-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+border: 1px solid #eee;
+border-radius: 8px;
+padding: 16px;
+margin: 16px;
+}
+
+.payment-title {
+font-weight: bold;
+}
+
+.payment-subtitle {
+color: #666;
+font-size: 14px;
+}
+
+button {
+color: black;
+border: 1px solid #ccc;
+background-color: white;
+border-radius: 6px;
+padding: 6px 12px;
+cursor: pointer;
+transition: background 0.2s;
+}
+
+button:hover {
+background-color: #f3f3f3;
+}
