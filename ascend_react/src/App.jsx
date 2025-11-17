@@ -84,7 +84,7 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
     price: (9.99 + i * 5).toFixed(2),
   })) : [
     { id: 0, name: 'Fone de ouvido', image: FoneOuvido, price: '299.99' },
-    { id: 1, name: 'Produto 11 de setembro', image: produto_11setembro, price: '199.99' },
+    //{ id: 1, name: 'Produto 11 de setembro', image: produto_11setembro, price: '199.99' },
     { id: 2, name: 'Bloco de notas invisível', image: BlocoNotasInvisivel, price: '49.99' },
     { id: 3, name: 'Chapéu mini-ventilador', image: Chapeuminiventilador, price: '149.99' },
     { id: 4, name: 'Chinelo massageador', image: Chineldomassageador, price: '89.99' },
