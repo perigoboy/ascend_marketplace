@@ -95,7 +95,7 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
     { id: 9, name: 'Marmita eletrica', image: marmitaeletrica, price: '199.99' },
     { id: 11, name: 'Perfume de potó', image: perfumepoto, price: '199.99' },
     { id: 10, name: 'Pílula da coragem', image: Piluladacoragem, price: '199.99' },
-    //{ id: 10, name: 'Fósforo de labubu', image: produto_fosforolabubu, price: '199.99' },
+    //{ id: 11, name: 'Fósforo de labubu', image: produto_fosforolabubu, price: '199.99' },
     { id: 12, name: 'Funko Paulinho', image: produto_funko, price: '199.99' },
     { id: 13, name: 'Purificador de ar', image: Purificador_ar, price: '199.99' },
     { id: 14, name: 'Relógio que atrasa', image: Relogioqueatrasa, price: '199.99' },
