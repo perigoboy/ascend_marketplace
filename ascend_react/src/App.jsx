@@ -4,7 +4,7 @@ import './styles/inicio.css';
 import logoAscend from './assets/image/ascend_market.jpeg';
 import FoneOuvido from './assets/image/Fone de ouvido blue.png';
 import Perfil from './Paginas/Perfil';
-import produto_11setembro from './assets/image/produto_11setembro.png'; 
+//import produto_11setembro from './assets/image/produto_11setembro.png'; 
 import BlocoNotasInvisivel from './assets/image/Bloco Notas Invisivel.png';
 import Chapeuminiventilador from './assets/image/Chapeu mini-ventilador.png';
 import Chineldomassageador from './assets/image/Chinelo massageador.png';
