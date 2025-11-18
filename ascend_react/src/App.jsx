@@ -5,6 +5,7 @@ import logoAscend from './assets/image/ascend_market.jpeg';
 import FoneOuvido from './assets/image/Fone de ouvido blue.png';
 import Perfil from './Paginas/Perfil';
 import Pagamento from './Paginas/Pagamento'; 
+import Agente from './Paginas/Agente'; 
 
 //ate aqui  
 
@@ -51,7 +52,7 @@ function importAllImagesSafe() {
   }
   return [];
 }
-function Dashboard({ onLogout, onNavigateToAgent }) {
+function Dashboard({ onLogout  }) { //antes -> function Dashboard({ onLogout, onNavigateToAgent }) {
   const [showSettings, setShowSettings] = useState(false);
   const navigate = useNavigate();
 
@@ -122,16 +123,16 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
                 >
                   👔 Pagamento
                 </button>
-                <hr className="settings-divider" />
-                <button 
-                  className="settings-option agent-option" 
+
+                     <button 
+                  className="settings-option" 
                   type="button"
                   onClick={() => {
                     setShowSettings(false);
-                    onNavigateToAgent?.();
+                    navigate("/agente");
                   }}
                 >
-                  👔 Entrar como Agente
+                  👔 Agentes
                 </button>
                 <button 
                   className="settings-option logout-option" 
@@ -343,6 +344,7 @@ function AppRoutes() {
       <Route path="/perfil" element={<Perfil />} />
 
       <Route path="/pagamento" element={<Pagamento />} />
+      <Route path="/agente" element={<Agente />} />
     </Routes>
   );
 }
