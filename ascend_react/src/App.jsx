@@ -6,8 +6,19 @@ import FoneOuvido from './assets/image/Fone de ouvido blue.png';
 import Perfil from './Paginas/Perfil';
 import Pagamento from './Paginas/Pagamento'; 
 import Agente from './Paginas/Agente'; 
+import ChatButton from "./compunents/ChatBox";
+import ChatPopup from "./compunents/ChatPopup";
 
 //ate aqui  
+
+//chatbox
+
+
+
+//fim
+
+
+
 
 /* Error boundary */
 class ErrorBoundary extends Component {
@@ -350,9 +361,16 @@ function AppRoutes() {
 }
 
 export default function AppWrapper() {
+  const [chatOpen, setChatOpen] = useState(false);
+
   return (
-    <ErrorBoundary>
-      <AppRoutes />
-    </ErrorBoundary>
+    <>
+      <ChatButton onClick={() => setChatOpen(true)} />
+      <ChatPopup open={chatOpen} onClose={() => setChatOpen(false)} />
+
+      <ErrorBoundary>
+        <AppRoutes />
+      </ErrorBoundary>
+    </>
   );
 }
