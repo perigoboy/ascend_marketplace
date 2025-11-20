@@ -1,9 +1,10 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom';
 import './styles/inicio.css';
 import logoAscend from './assets/image/ascend_market.jpeg';
 import FoneOuvido from './assets/image/Fone de ouvido blue.png';
 import Perfil from './Paginas/Perfil';
+import CompraDeProdutos from './Paginas/CompraDeProdutos';
 //import produto_11setembro from './assets/image/produto_11setembro.png'; 
 import BlocoNotasInvisivel from './assets/image/Bloco Notas Invisivel.png';
 import Chapeuminiventilador from './assets/image/Chapeu mini-ventilador.png';
@@ -75,7 +76,7 @@ function importAllImagesSafe() {
 function Dashboard({ onLogout, onNavigateToAgent }) {
   const [showSettings, setShowSettings] = useState(false);
   const navigate = useNavigate();
-
+ 
   const images = importAllImagesSafe();
   const products = images.length ? images.map((img, i) => ({
     id: i,
@@ -216,7 +217,13 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
                   <div className="product-name">{p.name}</div>
                   <div className="product-footer">
                     <div className="product-price">R$ {p.price}</div>
-                    <button className="botao comprar" type="button">Comprar</button>
+                    <button
+                      className="botao comprar"
+                      type="button"
+                      onClick={() => navigate('/compra', { state: p })}
+                    >
+                      Comprar
+                    </button>
                   </div>
                 </div>
               </div>
@@ -305,7 +312,7 @@ function SocialLinks({ position = 'right' }) {
 function HomePage() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   const openLogin = () => { setShowLogin(true); setShowRegister(false); };
   const openRegister = () => { setShowRegister(true); setShowLogin(false); };
@@ -313,12 +320,8 @@ function HomePage() {
 
   const isFormOpen = showLogin || showRegister;
 
-  const handleLoginSubmit = (e) => { e.preventDefault(); setTimeout(() => setLoggedIn(true), 400); };
-  const handleRegisterSubmit = (e) => { e.preventDefault(); setTimeout(() => setLoggedIn(true), 400); };
-
-  if (loggedIn) {
-    return <Dashboard onLogout={() => { setLoggedIn(false); setShowLogin(false); setShowRegister(false); }} />;
-  }
+  const handleLoginSubmit = (e) => { e.preventDefault(); /* autenticar... */ navigate('/produtos'); };
+  const handleRegisterSubmit = (e) => { e.preventDefault(); /* criar conta... */ navigate('/produtos'); };
 
   return (
     <div className="container-central">
@@ -372,11 +375,52 @@ function HomePage() {
   );
 }
 
+
+// Wrapper que força os botões "Voltar"/"Cancelar" dentro do Perfil a navegarem para /produtos
+function PerfilWrapper() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Seleciona botões que contenham os textos esperados e sobrescreve o onclick
+    const matchTexts = ['voltar', 'cancelar', 'cancel'];
+    const buttons = Array.from(document.querySelectorAll('button')).filter((b) => {
+      const t = (b.textContent || '').trim().toLowerCase();
+      return matchTexts.includes(t);
+    });
+
+    const original = new Map();
+    buttons.forEach((btn) => {
+      original.set(btn, btn.onclick);
+      btn.onclick = (e) => { e.preventDefault(); navigate('/produtos'); };
+    });
+
+    return () => {
+      // restaura handlers originais ao desmontar
+      original.forEach((handler, btn) => { btn.onclick = handler; });
+    };
+  }, [navigate]);
+
+  return <Perfil />;
+}
+
+// Wrapper para renderizar Dashboard em rota dedicada e prover callbacks úteis
+function DashboardRoute() {
+  const navigate = useNavigate();
+  return (
+    <Dashboard
+      onLogout={() => navigate('/')}
+      onNavigateToAgent={() => navigate('/agente')}
+    />
+  );
+}
+
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/perfil" element={<Perfil />} />
+      <Route path="/compra" element={<CompraDeProdutos />} />
+      <Route path="/produtos" element={<DashboardRoute />} />
+      <Route path="/perfil" element={<PerfilWrapper />} />
     </Routes>
   );
 }
