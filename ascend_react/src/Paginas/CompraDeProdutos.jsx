@@ -141,10 +141,10 @@ export default function CompraDeProdutos() {
 	};
 
 	return (
-		<div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f6f7fb' }}>
+		<div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#ffffffff' }}>
 			<div style={{ padding: 18, display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1300, margin: '0 auto', width: '100%' }}>
 				<button onClick={() => navigate('/produtos')} className="botao secundario">← Voltar</button>
-				<div style={{ fontWeight: 700 }}>Finalizar Compra</div>
+				<div style={{ fontWeight: 700, color: '#000000c0' }}>Finalizar Compra</div>
 				<div />
 			</div>
 
@@ -207,7 +207,16 @@ export default function CompraDeProdutos() {
 
 					{/* Painel de Taxas e Entrega */}
 					<aside style={{ width: 340, alignSelf: 'flex-start' }}>
-						<div style={{ position: 'sticky', top: 24, background: '#fff', padding: 18, borderRadius: 12, border: '1px solid #eee', boxShadow: '0 6px 20px rgba(16,24,40,0.04)' }}>
+						<div style={{ 
+							position: 'sticky', 
+							top: 24, 
+							background: '#fff', 
+							padding: 18, 
+							borderRadius: 12, 
+							border: '1px solid #000000ff', 
+							boxShadow: '0 6px 20px rgba(0, 0, 0, 0.04)',
+							color: '#000' /* <-- FORÇA fonte preta na caixa */
+						}}>
 							<h3 style={{ marginTop: 0 }}>Taxas e Entrega</h3>
 
 							<div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
@@ -220,12 +229,12 @@ export default function CompraDeProdutos() {
 								<div>R$ {shippingFee.toFixed(2)}</div>
 							</div>
 
-							<div style={{ borderTop: '1px dashed #ddd', marginTop: 8, paddingTop: 8, display: 'flex', justifyContent: 'space-between', fontWeight: 700 }}>
+							<div style={{ borderTop: '1px dashed #ffffffff', marginTop: 8, paddingTop: 8, display: 'flex', justifyContent: 'space-between', fontWeight: 700 }}>
 								<div>Total</div>
 								<div>R$ {total.toFixed(2)}</div>
 							</div>
 
-							<div style={{ marginTop: 12, fontSize: 13, color: '#444' }}>
+							<div style={{ marginTop: 12, fontSize: 13, color: '#000' /* <-- alterado para preto */ }}>
 								<p style={{ margin: 0 }}>
 									Entrega estimada: 3–7 dias úteis para produtos nacionais.
 								</p>
@@ -257,7 +266,7 @@ export default function CompraDeProdutos() {
 						onClick={(e) => e.stopPropagation()}
 						style={{
 							width: '100%', maxWidth: 760, background: '#000000ff', borderTopLeftRadius: 12, borderTopRightRadius: 12,
-							padding: 18, boxShadow: '0 -8px 30px rgba(2,6,23,0.2)', margin: '0 12px 12px', position: 'relative'
+							padding: 18, boxShadow: '0 -8px 30px rgba(0, 0, 0, 1)', margin: '0 12px 12px', position: 'relative'
 						}}
 					>
 						<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
