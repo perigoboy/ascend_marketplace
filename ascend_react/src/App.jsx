@@ -5,6 +5,7 @@ import logoAscend from './assets/image/ascend_market.jpeg';
 import FoneOuvido from './assets/image/Fone de ouvido blue.png';
 import Perfil from './Paginas/Perfil';
 import CompraDeProdutos from './Paginas/CompraDeProdutos';
+import CadastroDeAgentes from './Paginas/CadastroDeAgentes'; // <-- ADICIONADO
 //import produto_11setembro from './assets/image/produto_11setembro.png'; 
 import BlocoNotasInvisivel from './assets/image/Bloco Notas Invisivel.png';
 import Chapeuminiventilador from './assets/image/Chapeu mini-ventilador.png';
@@ -83,29 +84,29 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
     name: img.name.replace(/[-_]/g, ' '),
     image: img.src,
     price: (9.99 + i * 5).toFixed(2),
+    description: `Descrição detalhada para ${img.name.replace(/[-_]/g, ' ')}`,
   })) : [
-    { id: 0, name: 'Fone de ouvido', image: FoneOuvido, price: '299.99' },
+    { id: 0, name: 'Fone de ouvido', image: FoneOuvido, price: '89.99', description: 'Fone de ouvido Bluetooth com cancelamento deb ruído ativo e som de alta qualidade.' },
     //{ id: 1, name: 'Produto 11 de setembro', image: produto_11setembro, price: '199.99' },
-    { id: 2, name: 'Bloco de notas invisível', image: BlocoNotasInvisivel, price: '49.99' },
-    { id: 3, name: 'Chapéu mini-ventilador', image: Chapeuminiventilador, price: '149.99' },
-    { id: 4, name: 'Chinelo massageador', image: Chineldomassageador, price: '89.99' },
-    { id: 5, name: 'Espelho da sinceridade', image: Espelhodasinceridade, price: '29.99' },
-    { id: 6, name: 'Fone de ouvido(blue)', image: FoneOuvidoblue, price: '129.99' },
-    { id: 7, name: 'Fone de ouvido (branco)', image: FoneOuvidobluebranco, price: '59.99' },
-    { id: 8, name: 'Gato virtual', image: GatoVirtual, price: '19.99' },
-    { id: 9, name: 'Marmita eletrica', image: marmitaeletrica, price: '199.99' },
-    { id: 11, name: 'Perfume de potó', image: perfumepoto, price: '199.99' },
-    { id: 10, name: 'Pílula da coragem', image: Piluladacoragem, price: '199.99' },
+    { id: 2, name: 'Bloco de notas invisível', image: BlocoNotasInvisivel, price: '49.99', description: 'Bloco com folhas invisíveis que só aparecem com luz UV divertido e prático para anotações secretas.' },
+    { id: 3, name: 'Chapéu mini-ventilador', image: Chapeuminiventilador, price: '149.99', description: 'Chapéu com ventilador embutido para dias quentes leve e recarregável.' },
+//    { id: 4, name: 'Chinelo massageador', image: Chineldomassageador, price: '79.99', description
+    { id: 6, name: 'Fone de ouvido(blue)', image: FoneOuvidoblue, price: '129.99', description: 'Fone sem fio com cancelamento parcial de ruído e bateria de longa duração.' },
+    { id: 7, name: 'Fone de ouvido (branco)', image: FoneOuvidobluebranco, price: '59.99', description: 'Modelo econômico, confortável para uso diário.' },
+    { id: 8, name: 'Gato virtual', image: GatoVirtual, price: '19.99', description: 'Brinquedo interativo em forma de gato animação e som integrados.' },
+    { id: 9, name: 'Marmita eletrica', image: marmitaeletrica, price: '259.99', description: 'Marmita elétrica portátil para aquecer refeições em qualquer lugar.' },
+    { id: 11, name: 'Perfume de potó', image: perfumepoto, price: '29.99', description: 'Fragrância exótica e marcante  ideal para ocasiões especiais.' },
+    { id: 10, name: 'Pílula da coragem', image: Piluladacoragem, price: '9.99', description: 'Brinquedo temático em formato de pílula ótimo para colecionadores.' },
     //{ id: 11, name: 'Fósforo de labubu', image: produto_fosforolabubu, price: '199.99' },
-    { id: 12, name: 'Funko Paulinho', image: produto_funko, price: '199.99' },
-    { id: 13, name: 'Purificador de ar', image: Purificador_ar, price: '199.99' },
-    { id: 14, name: 'Relógio que atrasa', image: Relogioqueatrasa, price: '199.99' },
-    { id: 15, name: 'Sapato sapo', image: Sapatosapo, price: '199.99' },
-    { id: 16, name: 'Tênis voador', image: TenisGPSbar, price: '199.99' },
-    { id: 17, name: 'Smartwatch', image: smartwatchinteligente, price: '199.99' },
-    { id: 18, name: 'Tarô dos boletos', image: tarôdosboletos, price: '199.99' },
-    { id: 19, name: 'Travesseiro wi-fi', image: travesseirowifi, price: '199.99' },
-    { id: 20, name: 'Vela duvidosa', image: Veladuvidosa, price: '199.99' },
+    { id: 12, name: 'Funko Paulinho', image: produto_funko, price: '50.00', description: 'Edição colecionável do Paulinho  ótimo presente para fãs.' },
+    { id: 13, name: 'Purificador de ar', image: Purificador_ar, price: '78.80', description: 'Purificador compacto com filtro HEPA para ambientes pequenos.' },
+    { id: 14, name: 'Relógio que atrasa', image: Relogioqueatrasa, price: '118.59', description: 'Relógio com design retrô pode atrasar intencionalmente para estilo.' },
+    { id: 15, name: 'Sapato sapo', image: Sapatosapo, price: '67.69', description: 'Sapato com estampa de sapo confortável e divertido.' },
+    { id: 16, name: 'Tênis voador', image: TenisGPSbar, price: '249.99', description: 'Tênis com estilo futurista e sola com tecnologia de desempenho.' },
+    { id: 17, name: 'Smartwatch', image: smartwatchinteligente, price: '119.99', description: 'Relógio inteligente com monitoramento de saúde e notificações.' },
+    { id: 18, name: 'Tarô dos boletos', image: tarôdosboletos, price: '9.99', description: 'Jogo de tarô bem-humorado que prevê suas finanças (ou não).'},
+    { id: 19, name: 'Travesseiro wi-fi', image: travesseirowifi, price: '109.99', description: 'Travesseiro com conectividade para reproduzir sons e relaxamento.' },
+    { id: 20, name: 'Vela duvidosa', image: Veladuvidosa, price: '6.99', description: 'Vela aromática com fragrância misteriosa use por sua conta e risco.' },
 
   ];
 
@@ -113,7 +114,12 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
     <div className="dashboard-root" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <header className="dashboard-header">
         <div className="header-left">
-          <img src={logoAscend} alt="logo" className="header-logo" />
+          <img
+            src={logoAscend}
+            alt="logo"
+            className="header-logo"
+            style={{ width: 120, height: 'auto', maxHeight: 90 }} // Aumenta a logo
+          />
         </div>
 
         <div className="header-center">
@@ -215,6 +221,11 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
                 <img src={p.image} alt={p.name} className="product-img" />
                 <div className="product-info">
                   <div className="product-name">{p.name}</div>
+                  {p.description && (
+                    <div className="product-desc" style={{ fontSize: 12, color: '#666', marginTop: 6 }}>
+                      {p.description.length > 70 ? `${p.description.slice(0, 70)}...` : p.description}
+                    </div>
+                  )}
                   <div className="product-footer">
                     <div className="product-price">R$ {p.price}</div>
                     <button
@@ -421,6 +432,7 @@ function AppRoutes() {
       <Route path="/compra" element={<CompraDeProdutos />} />
       <Route path="/produtos" element={<DashboardRoute />} />
       <Route path="/perfil" element={<PerfilWrapper />} />
+      <Route path="/agente" element={<CadastroDeAgentes />} /> {/* <-- ADICIONADO */}
     </Routes>
   );
 }
