@@ -5,12 +5,10 @@ function Perfil() {
   const navigate = useNavigate();
 
   return (
-
-    <div
-    style={{
+    <div style={{
       minHeight: '100vh',
       padding: '40px',
-      backgroundColor: '#f5f5f5'
+      backgroundColor: '#fff'
     }}>
       <div style={{
         maxWidth: '800px',
@@ -18,7 +16,7 @@ function Perfil() {
         backgroundColor: 'white',
         borderRadius: '8px',
         padding: '30px',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+        border: '1px solid #000'
       }}>
         <div style={{ marginBottom: '30px', display: 'flex', alignItems: 'center', gap: '15px' }}>
           <button
@@ -30,12 +28,13 @@ function Perfil() {
               border: 'none',
               borderRadius: '4px',
               cursor: 'pointer',
-              fontSize: '14px'
+              fontSize: '14px',
+              fontWeight: 600
             }}
           >
             ← Voltar
           </button>
-          <h1 style={{ margin: 0 }}>Meu Perfil</h1>
+          <h1 style={{ margin: 0, color: '#000' }}>Meu Perfil</h1>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
@@ -44,28 +43,29 @@ function Perfil() {
               width: '100px',
               height: '100px',
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #777373ff 0%, #000000ff 100%)',
+              background: '#000',
+              border: '2px solid #000',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '40px',
               color: 'white'
             }}>
-              🧟
+              👾
             </div>
             <div>
-              <h2 style={{ margin: '0 0 5px 0' }}>Nome do Usuário</h2>
+              <h2 style={{ margin: '0 0 5px 0', color: '#000' }}>Nome do Usuário</h2>
               <p style={{ margin: 0, color: '#666' }}>usuario@email.com</p>
             </div>
           </div>
 
-          <hr style={{ border: 'none', borderTop: '1px solid #eee' }} />
+          <hr style={{ border: 'none', borderTop: '1px solid #000' }} />
 
           <div>
-            <h3 style={{ marginBottom: '15px' }}>Informações Pessoais</h3>
+            <h3 style={{ marginBottom: '15px', color: '#000' }}>Informações Pessoais</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px', fontWeight: 600 }}>
                   Nome completo
                 </label>
                 <input
@@ -74,15 +74,16 @@ function Perfil() {
                   style={{
                     width: '100%',
                     padding: '10px',
-                    border: '1px solid #ddd',
+                    border: '1px solid #000',
                     borderRadius: '4px',
-                    fontSize: '14px'
+                    fontSize: '14px',
+                    color: '#ffffffff'
                   }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000', fontSize: '14px', fontWeight: 600 }}>
                   Email
                 </label>
                 <input
@@ -91,15 +92,16 @@ function Perfil() {
                   style={{
                     width: '100%',
                     padding: '10px',
-                    border: '1px solid #ddd',
+                    border: '1px solid #000',
                     borderRadius: '4px',
-                    fontSize: '14px'
+                    fontSize: '14px',
+                    color: '#ffffffff'
                   }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000', fontSize: '14px', fontWeight: 600 }}>
                   Telefone
                 </label>
                 <input
@@ -108,22 +110,23 @@ function Perfil() {
                   style={{
                     width: '100%',
                     padding: '10px',
-                    border: '1px solid #ddd',
+                    border: '1px solid #000',
                     borderRadius: '4px',
-                    fontSize: '14px'
+                    fontSize: '14px',
+                    color: '#ffffffff'
                   }}
                 />
               </div>
             </div>
           </div>
 
-          <hr style={{ border: 'none', borderTop: '1px solid #eee' }} />
+          <hr style={{ border: 'none', borderTop: '1px solid #000' }} />
 
           <div>
-            <h3 style={{ marginBottom: '15px' }}>Endereço</h3>
+            <h3 style={{ marginBottom: '15px', color: '#000' }}>Endereço</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000', fontSize: '14px', fontWeight: 600 }}>
                   CEP
                 </label>
                 <input
@@ -132,16 +135,17 @@ function Perfil() {
                   style={{
                     width: '100%',
                     padding: '10px',
-                    border: '1px solid #ddd',
+                    border: '1px solid #000',
                     borderRadius: '4px',
-                    fontSize: '14px'
+                    fontSize: '14px',
+                    color: '#ffffffff'
                   }}
                 />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '15px' }}>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
+                  <label style={{ display: 'block', marginBottom: '5px', color: '#000', fontSize: '14px', fontWeight: 600 }}>
                     Rua
                   </label>
                   <input
@@ -150,14 +154,15 @@ function Perfil() {
                     style={{
                       width: '100%',
                       padding: '10px',
-                      border: '1px solid #ddd',
+                      border: '1px solid #000',
                       borderRadius: '4px',
-                      fontSize: '14px'
+                      fontSize: '14px',
+                      color: '#ffffffff'
                     }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
+                  <label style={{ display: 'block', marginBottom: '5px', color: '#000', fontSize: '14px', fontWeight: 600 }}>
                     Número
                   </label>
                   <input
@@ -166,16 +171,17 @@ function Perfil() {
                     style={{
                       width: '100%',
                       padding: '10px',
-                      border: '1px solid #ddd',
+                      border: '1px solid #000',
                       borderRadius: '4px',
-                      fontSize: '14px'
+                      fontSize: '14px',
+                      color: '#ffffffff'
                     }}
                   />
                 </div>
               </div>
 
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px' }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000', fontSize: '14px', fontWeight: 600 }}>
                   Cidade / Estado
                 </label>
                 <input
@@ -184,9 +190,10 @@ function Perfil() {
                   style={{
                     width: '100%',
                     padding: '10px',
-                    border: '1px solid #ddd',
+                    border: '1px solid #000',
                     borderRadius: '4px',
-                    fontSize: '14px'
+                    fontSize: '14px',
+                    color: '#ffffffff'
                   }}
                 />
               </div>
@@ -203,7 +210,7 @@ function Perfil() {
                 borderRadius: '4px',
                 cursor: 'pointer',
                 fontSize: '14px',
-                fontWeight: '500'
+                fontWeight: 600
               }}
             >
               Salvar Alterações
@@ -214,10 +221,11 @@ function Perfil() {
                 padding: '12px 24px',
                 background: '#fff',
                 color: '#000',
-                border: '1px solid #ddd',
+                border: '1px solid #000',
                 borderRadius: '4px',
                 cursor: 'pointer',
-                fontSize: '14px'
+                fontSize: '14px',
+                fontWeight: 600
               }}
             >
               Cancelar

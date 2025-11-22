@@ -5,7 +5,10 @@ import logoAscend from './assets/image/ascend_market.jpeg';
 import FoneOuvido from './assets/image/Fone de ouvido blue.png';
 import Perfil from './Paginas/Perfil';
 import CompraDeProdutos from './Paginas/CompraDeProdutos';
-import CadastroDeAgentes from './Paginas/CadastroDeAgentes'; // <-- ADICIONADO
+import CadastroDeAgentes from './Paginas/CadastroDeAgentes';
+import ChatDeAgente from './Paginas/ChatDeAgente';
+import ComprasFeitas from './Paginas/ComprasFeitas';
+import CarrinhoDeCompras from './Paginas/CarrinhoDeCompras';
 //import produto_11setembro from './assets/image/produto_11setembro.png'; 
 import BlocoNotasInvisivel from './assets/image/Bloco Notas Invisivel.png';
 import Chapeuminiventilador from './assets/image/Chapeu mini-ventilador.png';
@@ -27,7 +30,8 @@ import smartwatchinteligente from './assets/image/smartwatch inteligente.png';
 import tarôdosboletos from './assets/image/tarô dos boletos.png';
 import travesseirowifi from './assets/image/travesseiro wi-fi.png';
 import Veladuvidosa from './assets/image/Vela duvidosa.png';
-
+import Configuracoes from './Paginas/Configuracoes';
+import { ThemeProvider } from './context/ThemeContext';
 
 //ate aqui  
 
@@ -76,6 +80,11 @@ function importAllImagesSafe() {
 }
 function Dashboard({ onLogout, onNavigateToAgent }) {
   const [showSettings, setShowSettings] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+  const [chatMinimized, setChatMinimized] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const navigate = useNavigate();
  
   const images = importAllImagesSafe();
@@ -110,6 +119,26 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
 
   ];
 
+  // Filtra produtos baseado na busca
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      const filtered = products.filter(p => 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredProducts(filtered.slice(0, 5)); // Mostra no máximo 5 sugestões
+      setShowSuggestions(true);
+    } else {
+      setFilteredProducts([]);
+      setShowSuggestions(false);
+    }
+  }, [searchQuery]);
+
+  const handleSearchClick = (product) => {
+    navigate('/compra', { state: product });
+    setSearchQuery('');
+    setShowSuggestions(false);
+  };
+
   return (
     <div className="dashboard-root" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <header className="dashboard-header">
@@ -122,18 +151,163 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
           />
         </div>
 
-        <div className="header-center">
-          <div className="search-wrap">
-            <input className="search-input" placeholder="fones de ouvido" />
-            <button className="search-btn" type="button">🔍</button>
+        <div className="header-center" style={{ position: 'relative' }}>
+          <div className="search-wrap" style={{ position: 'relative' }}>
+            <input 
+              className="search-input" 
+              placeholder="Buscar produtos..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => searchQuery && setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+              style={{
+                width: '100%',
+                padding: '12px 48px 12px 16px',
+                border: '1px solid #e0e0e0',
+                borderRadius: 8,
+                fontSize: 15,
+                color: '#000',
+                background: '#fff',
+                outline: 'none',
+                transition: 'all 0.2s ease',
+                boxShadow: showSuggestions ? '0 4px 12px rgba(0,0,0,0.08)' : 'none'
+              }}
+            />
+            <button 
+              className="search-btn" 
+              type="button"
+              style={{
+                position: 'absolute',
+                right: 8,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: 20,
+                color: '#999',
+                padding: 8,
+                borderRadius: 4,
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = '#000';
+                e.currentTarget.style.background = '#f5f5f5';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = '#999';
+                e.currentTarget.style.background = 'transparent';
+              }}
+            >
+              🔍
+            </button>
+
+            {/* Sugestões de produtos */}
+            {showSuggestions && filteredProducts.length > 0 && (
+              <div style={{
+                position: 'absolute',
+                top: 'calc(100% + 8px)',
+                left: 0,
+                right: 0,
+                background: '#fff',
+                borderRadius: 8,
+                boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                border: '1px solid #e0e0e0',
+                zIndex: 1000,
+                maxHeight: 400,
+                overflowY: 'auto'
+              }}>
+                {filteredProducts.map((product) => (
+                  <div
+                    key={product.id}
+                    onClick={() => handleSearchClick(product)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      padding: 12,
+                      cursor: 'pointer',
+                      borderBottom: '1px solid #f5f5f5',
+                      transition: 'background 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f9f9f9'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
+                  >
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      style={{
+                        width: 50,
+                        height: 50,
+                        objectFit: 'contain',
+                        background: '#f5f5f5',
+                        borderRadius: 6,
+                        padding: 4
+                      }}
+                    />
+                    <div style={{ flex: 1 }}>
+                      <div style={{ 
+                        fontSize: 14, 
+                        fontWeight: 600, 
+                        color: '#000',
+                        marginBottom: 4
+                      }}>
+                        {product.name}
+                      </div>
+                      <div style={{ fontSize: 13, color: '#666' }}>
+                        R$ {product.price}
+                      </div>
+                    </div>
+                    <div style={{ 
+                      fontSize: 18, 
+                      color: '#ddd',
+                      transition: 'color 0.2s ease'
+                    }}>
+                      →
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {showSuggestions && filteredProducts.length === 0 && searchQuery && (
+              <div style={{
+                position: 'absolute',
+                top: 'calc(100% + 8px)',
+                left: 0,
+                right: 0,
+                background: '#fff',
+                borderRadius: 8,
+                boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+                border: '1px solid #e0e0e0',
+                padding: 20,
+                textAlign: 'center',
+                color: '#999',
+                zIndex: 1000
+              }}>
+                <div style={{ fontSize: 32, marginBottom: 8 }}>🔍</div>
+                <div style={{ fontSize: 14 }}>Nenhum produto encontrado</div>
+              </div>
+            )}
           </div>
         </div>
 
         <div className="header-right">
           <button className="link-btn" type="button">Faça o download</button>
-          <button className="link-btn" type="button">Conta</button>
-          <button className="link-btn" type="button">Carrinho</button>
-          
+          <button 
+            className="link-btn" 
+            type="button"
+            onClick={() => navigate('/compras')}
+          >
+            📦 Minhas Compras
+          </button>
+          <button 
+            className="link-btn" 
+            type="button"
+            onClick={() => navigate('/carrinho')}
+          >
+            🛒 Carrinho de Compras
+          </button>
           <div className="settings-container">
             <button 
               className="settings-btn" 
@@ -146,23 +320,44 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
             
             {showSettings && (
               <div className="settings-menu">
-  <button
-  className="settings-option"
-  type="button"
-  onClick={() => {
-    setShowSettings(false);
-    navigate("/perfil");
-  }}
->
-  👤 Perfil
-</button>
-                <button className="settings-option" type="button">
+                <button
+                  className="settings-option"
+                  type="button"
+                  onClick={() => {
+                    setShowSettings(false);
+                    navigate("/perfil");
+                  }}
+                >
+                  👤 Perfil
+                </button>
+                <button 
+                  className="settings-option" 
+                  type="button"
+                  onClick={() => {
+                    setShowSettings(false);
+                    navigate("/configuracoes", { state: { tab: 'notificacoes' } });
+                  }}
+                >
                   🔔 Notificações
                 </button>
-                <button className="settings-option" type="button">
+                <button 
+                  className="settings-option" 
+                  type="button"
+                  onClick={() => {
+                    setShowSettings(false);
+                    navigate("/configuracoes", { state: { tab: 'aparencia' } });
+                  }}
+                >
                   🎨 Aparência
                 </button>
-                <button className="settings-option" type="button">
+                <button 
+                  className="settings-option" 
+                  type="button"
+                  onClick={() => {
+                    setShowSettings(false);
+                    navigate("/configuracoes", { state: { tab: 'privacidade' } });
+                  }}
+                >
                   🔒 Privacidade
                 </button>
                 <hr className="settings-divider" />
@@ -198,19 +393,325 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
             <button className="hero-cta" type="button">Compre agora</button>
           </div>
 
-          <div className="hero-right">
-            <div className="hero-cards">
-              <div className="hero-card" />
-              <div className="hero-card" />
-              <div className="hero-card" />
+          <div className="hero-right" style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%' }}>
+            {/* Header de Promoções */}
+            <div style={{
+              fontSize: 16,
+              fontWeight: 700,
+              color: '#000',
+              borderBottom: '2px solid #000',
+              paddingBottom: 6,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8
+            }}>
+              ⚡Promoções Relâmpago⚡
+            </div>
+
+            {/* Container horizontal dos produtos */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: 10,
+              width: '100%'
+            }}>
+              {/* Produto em Promoção 1 */}
+              <div
+                onClick={() => navigate('/compra', { 
+                  state: { 
+                    ...products[17], 
+                    isPromo: true, 
+                    originalPrice: products[17].price,
+                    promoPrice: (Number(products[17].price) * 0.65).toFixed(2),
+                    discount: 35
+                  } 
+                })}
+                style={{
+                  background: '#fff',
+                  border: '2px solid #000',
+                  borderRadius: 6,
+                  padding: 10,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div style={{
+                  position: 'absolute',
+                  top: 6,
+                  right: 6,
+                  background: '#000',
+                  color: '#fff',
+                  padding: '3px 8px',
+                  borderRadius: 4,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  zIndex: 1
+                }}>
+                  -35%
+                </div>
+                <img
+                  src={products[17]?.image}
+                  alt={products[17]?.name}
+                  style={{
+                    width: '100%',
+                    height: 75,
+                    objectFit: 'contain',
+                    background: '#f5f5f5',
+                    borderRadius: 4,
+                    marginBottom: 8
+                  }}
+                />
+                <div style={{ width: '100%', textAlign: 'center', padding: '0 6px' }}>
+                  <div style={{ 
+                    fontSize: 13, 
+                    fontWeight: 600, 
+                    marginBottom: 6,
+                    color: '#000',
+                    lineHeight: 1.3,
+                    height: 32,
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical'
+                  }}>
+                    {products[17]?.name}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+                    <span style={{ 
+                      fontSize: 11, 
+                      color: '#999', 
+                      textDecoration: 'line-through' 
+                    }}>
+                      R$ {products[17]?.price}
+                    </span>
+                    <span style={{ 
+                      fontSize: 17, 
+                      fontWeight: 700, 
+                      color: '#000' 
+                    }}>
+                      R$ {(Number(products[17]?.price) * 0.65).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Produto em Promoção 2 */}
+              <div
+                onClick={() => navigate('/compra', { 
+                  state: { 
+                    ...products[9], 
+                    isPromo: true, 
+                    originalPrice: products[9].price,
+                    promoPrice: (Number(products[9].price) * 0.40).toFixed(2),
+                    discount: 60
+                  } 
+                })}
+                style={{
+                  background: '#fff',
+                  border: '2px solid #000',
+                  borderRadius: 6,
+                  padding: 10,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div style={{
+                  position: 'absolute',
+                  top: 6,
+                  right: 6,
+                  background: '#000',
+                  color: '#fff',
+                  padding: '3px 8px',
+                  borderRadius: 4,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  zIndex: 1
+                }}>
+                  -60%
+                </div>
+                <img
+                  src={products[9]?.image}
+                  alt={products[9]?.name}
+                  style={{
+                    width: '100%',
+                    height: 75,
+                    objectFit: 'contain',
+                    background: '#f5f5f5',
+                    borderRadius: 4,
+                    marginBottom: 8
+                  }}
+                />
+                <div style={{ width: '100%', textAlign: 'center', padding: '0 6px' }}>
+                  <div style={{ 
+                    fontSize: 13, 
+                    fontWeight: 600, 
+                    marginBottom: 6,
+                    color: '#000',
+                    lineHeight: 1.3,
+                    height: 32,
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical'
+                  }}>
+                    {products[9]?.name}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+                    <span style={{ 
+                      fontSize: 11, 
+                      color: '#999', 
+                      textDecoration: 'line-through' 
+                    }}>
+                      R$ {products[9]?.price}
+                    </span>
+                    <span style={{ 
+                      fontSize: 17, 
+                      fontWeight: 700, 
+                      color: '#000' 
+                    }}>
+                      R$ {(Number(products[9]?.price) * 0.40).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Produto em Promoção 3 */}
+              <div
+                onClick={() => navigate('/compra', { 
+                  state: { 
+                    ...products[16], 
+                    isPromo: true, 
+                    originalPrice: products[16].price,
+                    promoPrice: (Number(products[16].price) * 0.75).toFixed(2),
+                    discount: 25
+                  } 
+                })}
+                style={{
+                  background: '#fff',
+                  border: '2px solid #000',
+                  borderRadius: 6,
+                  padding: 10,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div style={{
+                  position: 'absolute',
+                  top: 6,
+                  right: 6,
+                  background: '#000',
+                  color: '#fff',
+                  padding: '3px 8px',
+                  borderRadius: 4,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  zIndex: 1
+                }}>
+                  -25%
+                </div>
+                <img
+                  src={products[16]?.image}
+                  alt={products[16]?.name}
+                  style={{
+                    width: '100%',
+                    height: 75,
+                    objectFit: 'contain',
+                    background: '#f5f5f5',
+                    borderRadius: 4,
+                    marginBottom: 8
+                  }}
+                />
+                <div style={{ width: '100%', textAlign: 'center', padding: '0 6px' }}>
+                  <div style={{ 
+                    fontSize: 13, 
+                    fontWeight: 600, 
+                    marginBottom: 6,
+                    color: '#000',
+                    lineHeight: 1.3,
+                    height: 32,
+                    overflow: 'hidden',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical'
+                  }}>
+                    {products[16]?.name}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+                    <span style={{ 
+                      fontSize: 11, 
+                      color: '#999', 
+                      textDecoration: 'line-through' 
+                    }}>
+                      R$ {products[16]?.price}
+                    </span>
+                    <span style={{ 
+                      fontSize: 17, 
+                      fontWeight: 700, 
+                      color: '#000' 
+                    }}>
+                      R$ {(Number(products[16]?.price) * 0.75).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Timer de Promoção */}
+            <div style={{
+              padding: 12,
+              background: '#000',
+              color: '#fff',
+              borderRadius: 6,
+              textAlign: 'center',
+              marginTop: 2
+            }}>
+              <div style={{ fontSize: 10, marginBottom: 4, opacity: 0.8 }}>
+                ⏰ Ofertas terminam em:
+              </div>
+              <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: 1 }}>
+                05:42:18
+              </div>
             </div>
           </div>
-        </section>
-
-        <section className="features-row">
-          <div className="feature">🚚 Frete grátis</div>
-          <div className="feature">⚡ Entrega rápida</div>
-          <div className="feature">🔁 Devoluções grátis</div>
         </section>
 
         <section className="products-section">
@@ -242,6 +743,55 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
           </div>
         </section>
       </main>
+
+      {/* Botão flutuante para abrir chat */}
+      {!showChat && (
+        <button
+          onClick={() => setShowChat(true)}
+          style={{
+            position: 'fixed',
+            bottom: 20,
+            right: 20,
+            width: 60,
+            height: 60,
+            borderRadius: '50%',
+            background: '#000',
+            border: '2px solid #000',
+            color: '#fff',
+            fontSize: 28,
+            cursor: 'pointer',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9997,
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.05)';
+            e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.3)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+          }}
+          title="Chat com Agente"
+        >
+          💬
+        </button>
+      )}
+
+      {/* Chat flutuante */}
+      {showChat && (
+        <ChatDeAgente
+          onClose={() => {
+            setShowChat(false);
+            setChatMinimized(false);
+          }}
+          isMinimized={chatMinimized}
+          onToggleMinimize={() => setChatMinimized(!chatMinimized)}
+        />
+      )}
     </div>
   );
 }
@@ -432,7 +982,10 @@ function AppRoutes() {
       <Route path="/compra" element={<CompraDeProdutos />} />
       <Route path="/produtos" element={<DashboardRoute />} />
       <Route path="/perfil" element={<PerfilWrapper />} />
-      <Route path="/agente" element={<CadastroDeAgentes />} /> {/* <-- ADICIONADO */}
+      <Route path="/configuracoes" element={<Configuracoes />} />
+      <Route path="/agente" element={<CadastroDeAgentes />} />
+      <Route path="/compras" element={<ComprasFeitas />} />
+      <Route path="/carrinho" element={<CarrinhoDeCompras />} />
     </Routes>
   );
 }
@@ -440,7 +993,9 @@ function AppRoutes() {
 export default function AppWrapper() {
   return (
     <ErrorBoundary>
-      <AppRoutes />
+      <ThemeProvider>
+        <AppRoutes />
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }
