@@ -100,7 +100,7 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
     { id: 2, name: 'Bloco de notas invisível', image: BlocoNotasInvisivel, price: '49.99', description: 'Bloco com folhas invisíveis que só aparecem com luz UV divertido e prático para anotações secretas.' },
     { id: 3, name: 'Chapéu mini-ventilador', image: Chapeuminiventilador, price: '149.99', description: 'Chapéu com ventilador embutido para dias quentes leve e recarregável.' },
 //    { id: 4, name: 'Chinelo massageador', image: Chineldomassageador, price: '79.99', description
-    { id: 6, name: 'Fone de ouvido(blue)', image: FoneOuvidoblue, price: '129.99', description: 'Fone sem fio com cancelamento parcial de ruído e bateria de longa duração.' },
+    { id: 6, name: 'Fone de ouvido(blue)', image: FoneOuvidoblue, price: '79.99', description: 'Fone sem fio com cancelamento parcial de ruído e bateria de longa duração.' },
     { id: 7, name: 'Fone de ouvido (branco)', image: FoneOuvidobluebranco, price: '59.99', description: 'Modelo econômico, confortável para uso diário.' },
     { id: 8, name: 'Gato virtual', image: GatoVirtual, price: '19.99', description: 'Brinquedo interativo em forma de gato animação e som integrados.' },
     { id: 9, name: 'Marmita eletrica', image: marmitaeletrica, price: '259.99', description: 'Marmita elétrica portátil para aquecer refeições em qualquer lugar.' },
@@ -293,7 +293,7 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
         </div>
 
         <div className="header-right">
-          <button className="link-btn" type="button">Faça o download</button>
+          <button className="link-btn" type="button">Download Mobile📱</button>
           <button 
             className="link-btn" 
             type="button"
@@ -386,11 +386,97 @@ function Dashboard({ onLogout, onNavigateToAgent }) {
 
       <main className="dashboard-main" style={{ flex: 1 }}>
         <section className="hero">
-          <div className="hero-left">
-            <div className="offer-badge">-19%</div>
-            <h2>Oferta 1ª compra</h2>
-            <p className="hero-sub">Especial para novo usuário</p>
-            <button className="hero-cta" type="button">Compre agora</button>
+          <div className="hero-left" style={{
+            background: 'linear-gradient(135deg, #000 0%, #333 100%)',
+            borderRadius: '12px',
+            padding: '40px',
+            color: '#fff',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            gap: '20px',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: '-50px',
+              right: '-50px',
+              width: '200px',
+              height: '200px',
+              background: 'rgba(255,255,255,0.05)',
+              borderRadius: '50%'
+            }}></div>
+            
+            <div style={{
+              background: '#fff',
+              color: '#000',
+              padding: '8px 20px',
+              borderRadius: '50px',
+              fontSize: '28px',
+              fontWeight: 800,
+              letterSpacing: '-1px',
+              boxShadow: '0 4px 12px rgba(255,255,255,0.2)'
+            }}>
+              -19%
+            </div>
+            
+            <div style={{ zIndex: 1 }}>
+              <h2 style={{ 
+                margin: 0, 
+                fontSize: '36px', 
+                fontWeight: 700,
+                lineHeight: 1.2,
+                marginBottom: '8px'
+              }}>
+                Oferta 1ª Compra
+              </h2>
+              <p style={{ 
+                margin: 0, 
+                fontSize: '16px', 
+                opacity: 0.9,
+                fontWeight: 400
+              }}>
+                Desconto especial para novos usuários
+              </p>
+            </div>
+            
+            <button 
+              className="hero-cta" 
+              type="button"
+              onClick={() => {
+                // Rola até a seção de produtos
+                const productsSection = document.querySelector('.products-section');
+                if (productsSection) {
+                  productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              style={{
+                background: '#fff',
+                color: '#000',
+                border: 'none',
+                padding: '14px 32px',
+                borderRadius: '8px',
+                fontSize: '16px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 12px rgba(255,255,255,0.3)',
+                zIndex: 1
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(255,255,255,0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(255,255,255,0.3)';
+              }}
+            >
+              Ver Produtos →
+            </button>
           </div>
 
           <div className="hero-right" style={{ display: 'flex', flexDirection: 'column', gap: 12, width: '100%' }}>
@@ -873,6 +959,9 @@ function SocialLinks({ position = 'right' }) {
 function HomePage() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
   const navigate = useNavigate();
 
   const openLogin = () => { setShowLogin(true); setShowRegister(false); };
@@ -883,6 +972,22 @@ function HomePage() {
 
   const handleLoginSubmit = (e) => { e.preventDefault(); /* autenticar... */ navigate('/produtos'); };
   const handleRegisterSubmit = (e) => { e.preventDefault(); /* criar conta... */ navigate('/produtos'); };
+
+  // Componente do ícone de olho aberto
+  const EyeOpenIcon = () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+  );
+
+  // Componente do ícone de olho fechado
+  const EyeClosedIcon = () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+      <line x1="1" y1="1" x2="23" y2="23"/>
+    </svg>
+  );
 
   return (
     <div className="container-central">
@@ -898,28 +1003,240 @@ function HomePage() {
       ) : (
         <div className="forms-area">
           {showLogin && (
-            <div className="form-container login-container">
+            <div className="form-container login-container" style={{
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+              borderRadius: '8px',
+              padding: '30px',
+              background: '#fff'
+            }}>
               <h2>Login</h2>
               <form className="login-form" onSubmit={handleLoginSubmit}>
                 <div className="form-fields">
                   <input type="email" placeholder="Email" className="login-input" required />
-                  <input type="password" placeholder="Senha" className="login-input" required />
+                  
+                  <div style={{ position: 'relative', width: '100%' }}>
+                    <input 
+                      type={showLoginPassword ? "text" : "password"} 
+                      placeholder="Senha" 
+                      className="login-input" 
+                      required 
+                      style={{ 
+                        paddingRight: '45px',
+                        width: '100%',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowLoginPassword(!showLoginPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: '12px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '4px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'opacity 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+                      onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                    >
+                      {showLoginPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                    </button>
+                  </div>
                 </div>
 
-                <button type="submit" className="botao principal">Login</button>
+                {/* Separador e botões de login social */}
+                <div style={{ margin: '20px 0', textAlign: 'center' }}>
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '10px',
+                    margin: '15px 0'
+                  }}>
+                    <hr style={{ flex: 1, border: 'none', borderTop: '1px solid #ddd' }} />
+                    <span style={{ color: '#666', fontSize: '13px' }}>ou continue com</span>
+                    <hr style={{ flex: 1, border: 'none', borderTop: '1px solid #ddd' }} />
+                  </div>
+
+                  <div style={{ 
+                    display: 'flex', 
+                    gap: '10px', 
+                    justifyContent: 'center',
+                    marginBottom: '15px'
+                  }}>
+                    <button
+                      type="button"
+                      onClick={() => console.log('Login com Google')}
+                      style={{
+                        flex: 1,
+                        padding: '10px',
+                        background: '#fff',
+                        color: '#000',
+                        border: '1px solid #ddd',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#f5f5f5'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
+                    >
+                      🔍 Google
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => console.log('Login com Facebook')}
+                      style={{
+                        flex: 1,
+                        padding: '10px',
+                        background: '#1877F2',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#166fe5'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = '#1877F2'}
+                    >
+                      f Facebook
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => console.log('Login com Twitter')}
+                      style={{
+                        flex: 1,
+                        padding: '10px',
+                        background: '#000000ff',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#3c3c3cff'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = '#343333ff'}
+                    >
+                      🐦 Twitter
+                    </button>
+                  </div>
+                </div>
+
+                <button type="submit" className="botao principal">Entrar</button>
                 <button type="button" className="botao secundario" onClick={closeForms}>Voltar</button>
               </form>
             </div>
           )}
 
           {showRegister && (
-            <div className="form-container register-container">
+            <div className="form-container register-container" style={{
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+              borderRadius: '8px',
+              padding: '30px',
+              background: '#fff'
+            }}>
               <h2>Cadastro</h2>
               <form className="register-form" onSubmit={handleRegisterSubmit}>
                 <div className="form-fields">
                   <input type="text" placeholder="Nome" className="login-input" required />
                   <input type="email" placeholder="Email" className="login-input" required />
-                  <input type="password" placeholder="Senha" className="login-input" required />
+                  
+                  <div style={{ position: 'relative', width: '100%' }}>
+                    <input 
+                      type={showPassword ? "text" : "password"} 
+                      placeholder="Senha" 
+                      className="login-input" 
+                      required 
+                      style={{ 
+                        paddingRight: '45px',
+                        width: '100%',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: '12px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '4px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'opacity 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+                      onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                    >
+                      {showPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                    </button>
+                  </div>
+
+                  <div style={{ position: 'relative', width: '100%' }}>
+                    <input 
+                      type={showConfirmPassword ? "text" : "password"} 
+                      placeholder="Repetir Senha" 
+                      className="login-input" 
+                      required 
+                      style={{ 
+                        paddingRight: '45px',
+                        width: '100%',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      style={{
+                        position: 'absolute',
+                        right: '12px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '4px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'opacity 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.opacity = '0.7'}
+                      onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                    >
+                      {showConfirmPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                    </button>
+                  </div>
                 </div>
 
                 <button type="submit" className="botao principal">Cadastrar</button>

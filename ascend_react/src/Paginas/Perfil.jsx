@@ -4,12 +4,43 @@ import { useNavigate } from 'react-router-dom';
 function Perfil() {
   const navigate = useNavigate();
 
+  // Estilo comum para inputs com placeholder cinza
+  const inputStyle = {
+    width: '100%',
+    padding: '10px',
+    border: '1px solid #000',
+    borderRadius: '4px',
+    fontSize: '14px',
+    color: '#fff',
+    backgroundColor: '#000'
+  };
+
   return (
     <div style={{
       minHeight: '100vh',
       padding: '40px',
       backgroundColor: '#fff'
     }}>
+      {/* Adiciona estilos CSS para placeholders */}
+      <style>
+        {`
+          input::placeholder {
+            color: #7a7a7aff;
+            opacity: 1;
+          }
+          input::-webkit-input-placeholder {
+            color: #9f9e9eff;
+          }
+          input::-moz-placeholder {
+            color: #898888ff;
+            opacity: 1;
+          }
+          input:-ms-input-placeholder {
+            color: #666;
+          }
+        `}
+      </style>
+      
       <div style={{
         maxWidth: '800px',
         margin: '0 auto',
@@ -65,20 +96,13 @@ function Perfil() {
             <h3 style={{ marginBottom: '15px', color: '#000' }}>Informações Pessoais</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <div>
-                <label style={{ display: 'block', marginBottom: '5px', color: '#000000ff', fontSize: '14px', fontWeight: 600 }}>
+                <label style={{ display: 'block', marginBottom: '5px', color: '#000', fontSize: '14px', fontWeight: 600 }}>
                   Nome completo
                 </label>
                 <input
                   type="text"
-                  defaultValue="Nome do Usuário"
-                  style={{
-                    width: '100%',
-                    padding: '10px',
-                    border: '1px solid #000',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                    color: '#ffffffff'
-                  }}
+                  placeholder="Nome do Usuário"
+                  style={inputStyle}
                 />
               </div>
 
@@ -88,15 +112,8 @@ function Perfil() {
                 </label>
                 <input
                   type="email"
-                  defaultValue="usuario@email.com"
-                  style={{
-                    width: '100%',
-                    padding: '10px',
-                    border: '1px solid #000',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                    color: '#ffffffff'
-                  }}
+                  placeholder="usuario@email.com"
+                  style={inputStyle}
                 />
               </div>
 
@@ -107,14 +124,7 @@ function Perfil() {
                 <input
                   type="tel"
                   placeholder="(00) 00000-0000"
-                  style={{
-                    width: '100%',
-                    padding: '10px',
-                    border: '1px solid #000',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                    color: '#ffffffff'
-                  }}
+                  style={inputStyle}
                 />
               </div>
             </div>
@@ -132,14 +142,7 @@ function Perfil() {
                 <input
                   type="text"
                   placeholder="00000-000"
-                  style={{
-                    width: '100%',
-                    padding: '10px',
-                    border: '1px solid #000',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                    color: '#ffffffff'
-                  }}
+                  style={inputStyle}
                 />
               </div>
 
@@ -151,14 +154,7 @@ function Perfil() {
                   <input
                     type="text"
                     placeholder="Nome da rua"
-                    style={{
-                      width: '100%',
-                      padding: '10px',
-                      border: '1px solid #000',
-                      borderRadius: '4px',
-                      fontSize: '14px',
-                      color: '#ffffffff'
-                    }}
+                    style={inputStyle}
                   />
                 </div>
                 <div>
@@ -168,14 +164,7 @@ function Perfil() {
                   <input
                     type="text"
                     placeholder="123"
-                    style={{
-                      width: '100%',
-                      padding: '10px',
-                      border: '1px solid #000',
-                      borderRadius: '4px',
-                      fontSize: '14px',
-                      color: '#ffffffff'
-                    }}
+                    style={inputStyle}
                   />
                 </div>
               </div>
@@ -187,14 +176,7 @@ function Perfil() {
                 <input
                   type="text"
                   placeholder="Cidade - UF"
-                  style={{
-                    width: '100%',
-                    padding: '10px',
-                    border: '1px solid #000',
-                    borderRadius: '4px',
-                    fontSize: '14px',
-                    color: '#ffffffff'
-                  }}
+                  style={inputStyle}
                 />
               </div>
             </div>

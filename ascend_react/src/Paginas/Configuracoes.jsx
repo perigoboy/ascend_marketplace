@@ -60,7 +60,7 @@ export default function Configuracoes() {
                     {isDark ? 'Modo Escuro' : 'Modo Claro'}
                   </div>
                   <div style={{ fontSize: 12, color: isDark ? '#999' : '#666', marginTop: 4 }}>
-                    {isDark ? 'Ativado' : 'Desativado'}
+                    {isDark ? 'Ativado' : 'Ativado'}
                   </div>
                 </div>
               </div>
